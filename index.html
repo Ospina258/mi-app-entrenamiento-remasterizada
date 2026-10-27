@@ -1,1 +1,515 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Registra tus entrenamientos, controla tu volumen semanal y ajusta tu nutrición con un plan personalizado.">
+<title>Mi Entrenamiento · Tu progreso, cada día</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" type="image/png" href="icono-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Entrenamiento">
+<meta name="application-name" content="Entrenamiento">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+<!-- ===== Iconos ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.4 12 3l9 7.4V21a.9.9 0 0 1-.9.9h-5.2v-6.6H9.1v6.6H3.9A.9.9 0 0 1 3 21z"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M3.5 8.5v7M17.5 6.5v11M20.5 8.5v7M6.5 12h11M2 10.5v3M22 10.5v3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 8c-2.6-1.5-6-.4-6 4 0 4.5 3 9 6 9s6-4.5 6-9c0-4.4-3.4-5.5-6-4Z"/><path d="M12 8c0-2.2 1.2-4 3.5-4.5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.9 7-7 0-3-1.7-5.4-3.4-7.3C13.8 5.6 13 3.7 13 2c-3.4 1.8-6 5-6 9 0 .7.1 1.3.2 2-1.6-.7-2.5-2-2.2-4C3.3 10.4 2 12.6 2 15c0 4.1 3 7 10 7Z"/><path d="M12 22c-2 0-3.5-1.4-3.5-3.4 0-1.6 1-2.7 2-3.8.8-.9 1.3-1.8 1.4-3 1.6 1.4 3.6 3.3 3.6 6.2 0 2.5-1.5 4-3.5 4Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4ZM14 5l4 4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 20h16"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0 4.5 4.5M12 4 7.5 8.5M4 20h16"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3ZM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20h16M6 20V9a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v11M9 7V4h6v3M9 13h6"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  </defs>
+</svg>
+
+<div class="ambient" aria-hidden="true">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+  <span class="orb orb-c"></span>
+  <span class="grid-lines"></span>
+</div>
+
+<!-- ===== Bienvenida / onboarding ===== -->
+<div class="welcome" id="welcomeScreen" aria-hidden="true">
+  <div class="welcome-shell">
+    <div class="welcome-top">
+      <div class="brand">
+        <span class="brand-mark"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+        <span class="brand-copy"><strong>Mi Entrenamiento</strong><span>Configura tu plan</span></span>
+      </div>
+      <button class="icon-btn" id="wcCloseBtn" aria-label="Cerrar" type="button" hidden>
+        <svg class="icon"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="welcome-progress"><i id="welcomeProgressBar"></i></div>
+    <div class="welcome-step-label"><span id="welcomeStepLabel">Paso 1 de 5</span><span>≈ 1 minuto</span></div>
+
+    <div class="welcome-stage">
+      <section class="welcome-card" data-step="1">
+        <span class="welcome-emoji">👋</span>
+        <p class="eyebrow">Bienvenido</p>
+        <h1>Empecemos por tu nombre</h1>
+        <p class="welcome-lead">Vamos a construir un plan a tu medida. Solo necesitamos unos datos para personalizar tu entrenamiento y tu nutrición.</p>
+        <label class="field">
+          <span>Nombre o apodo</span>
+          <input type="text" id="wcName" placeholder="Ej. Camila, Alex, Carlos…" maxlength="30" autocomplete="off">
+        </label>
+      </section>
+
+      <section class="welcome-card" data-step="2">
+        <span class="welcome-emoji">📐</span>
+        <p class="eyebrow">Punto de partida</p>
+        <h1>Tus datos físicos</h1>
+        <p class="welcome-lead">Con esto calculamos tu gasto energético y tus objetivos diarios.</p>
+        <div class="grid grid-3">
+          <label class="field"><span>Peso (kg)</span><input type="text" id="wcWeight" inputmode="decimal" pattern="[0-9.,]*" placeholder="70" autocomplete="off"></label>
+          <label class="field"><span>Altura (cm)</span><input type="text" id="wcHeight" inputmode="numeric" pattern="[0-9]*" placeholder="175" autocomplete="off"></label>
+          <label class="field"><span>Edad</span><input type="text" id="wcAge" inputmode="numeric" pattern="[0-9]*" placeholder="20" autocomplete="off"></label>
+        </div>
+        <div class="grid grid-2">
+          <label class="field"><span>Sexo biológico</span>
+            <select id="wcSex"><option value="M">Masculino</option><option value="F">Femenino</option></select>
+          </label>
+          <label class="field"><span>Actividad diaria</span>
+            <select id="wcActivity">
+              <option value="1.2">Sedentario</option>
+              <option value="1.375">Ligero (1-3 días/sem)</option>
+              <option value="1.55" selected>Moderado (3-5 días/sem)</option>
+              <option value="1.725">Intenso (6-7 días/sem)</option>
+              <option value="1.9">Atleta (2 sesiones/día)</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="welcome-card" data-step="3">
+        <span class="welcome-emoji">🏋️</span>
+        <p class="eyebrow">Experiencia</p>
+        <h1>¿Cuál es tu nivel?</h1>
+        <p class="welcome-lead">Define el volumen de entrenamiento que mejor se adapta a ti.</p>
+        <div class="choice-list" id="wcExpPicker"></div>
+      </section>
+
+      <section class="welcome-card" data-step="4">
+        <span class="welcome-emoji">📅</span>
+        <p class="eyebrow">Frecuencia</p>
+        <h1>¿Cuántos días entrenas?</h1>
+        <p class="welcome-lead">Ajustaremos tu split y tu rango de volumen semanal.</p>
+        <div class="choice-list" id="wcFreqPicker"></div>
+      </section>
+
+      <section class="welcome-card" data-step="5">
+        <span class="welcome-emoji">🎯</span>
+        <p class="eyebrow">Objetivo</p>
+        <h1>¿Qué quieres conseguir?</h1>
+        <p class="welcome-lead">Tu plan de calorías y macros se calculará automáticamente.</p>
+        <div class="choice-list" id="wcGoalPicker"></div>
+      </section>
+    </div>
+
+    <div class="welcome-footer">
+      <button class="btn btn-ghost" id="wcBackBtn" type="button">Atrás</button>
+      <button class="btn btn-primary" id="wcNextBtn" type="button">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== App ===== -->
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="#" data-go="inicio" aria-label="Ir al inicio">
+      <span class="brand-mark"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+      <span class="brand-copy"><strong>Mi Entrenamiento</strong><span id="greetLine">Tu progreso, cada día</span></span>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" id="profileBtn" aria-label="Editar perfil" type="button">
+        <svg class="icon"><use href="#i-user"/></svg>
+      </button>
+      <button class="icon-btn" id="moreBtn" aria-label="Más opciones" type="button">
+        <svg class="icon"><use href="#i-more"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Inicio -->
+    <section id="view-inicio" class="view active">
+      <div id="homeContent"></div>
+    </section>
+
+    <!-- Registrar -->
+    <section id="view-registrar" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Entrenamiento</p>
+          <h2>Nueva sesión</h2>
+        </div>
+        <span class="badge badge-soft" id="todayBadge"><svg class="icon"><use href="#i-calendar"/></svg> Hoy</span>
+      </div>
+
+      <div class="registrar-grid">
+        <div class="card">
+          <div class="grid grid-2 stack-mobile" style="gap:12px">
+            <label class="field"><span>Fecha</span><input type="date" id="wDate"></label>
+            <div class="field">
+              <span>Ejercicio</span>
+              <button type="button" class="picker-trigger" id="exercisePickerBtn">
+                <span class="picker-icon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+                <span class="picker-copy">
+                  <strong id="exercisePickerName">Elige un ejercicio</strong>
+                  <small id="exercisePickerMeta">Busca por grupo muscular</small>
+                </span>
+                <svg class="icon picker-chevron"><use href="#i-chevron"/></svg>
+              </button>
+              <input type="hidden" id="wExerciseSingle" value="">
+            </div>
+          </div>
+
+          <div id="autoMuscleHint" class="hint-card" style="display:none"></div>
+          <div id="lastSessionHint" class="hint-card" style="display:none"></div>
+          <div id="rirHint" class="hint-card" style="display:none"></div>
+
+          <div class="set-section">
+            <div class="set-section-head">
+              <h3>Series</h3>
+              <span class="muted small">Marca <svg class="icon icon-inline"><use href="#i-flame"/></svg> si es dropset</span>
+            </div>
+            <div class="set-head" aria-hidden="true">
+              <span>#</span><span>Reps</span><span>Kg</span><span>Fallo</span><span></span>
+            </div>
+            <div id="setsContainer"></div>
+            <button class="btn btn-ghost btn-block btn-add-set" id="addSetBtn" type="button">
+              <svg class="icon"><use href="#i-plus"/></svg> Añadir serie
+            </button>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-save" id="saveBtn" type="button">
+            <svg class="icon"><use href="#i-check"/></svg> Guardar sesión
+          </button>
+        </div>
+
+        <aside class="registrar-aside">
+          <div class="card session-summary" id="sessionSummary"></div>
+          <details class="card details-card">
+            <summary><span><svg class="icon"><use href="#i-flame"/></svg> ¿Qué es un dropset?</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+            <div class="details-body">
+              <p>Un <b>dropset</b> es una serie normal en la que, sin descansar, bajas el peso y sigues haciendo reps hasta el fallo. Se marca con 🔥 y cuenta como <b>una sola serie</b> para el volumen semanal, pero genera mucho más estímulo.</p>
+              <p class="muted small">Úsalos con moderación: 1–2 por ejercicio, en la última serie.</p>
+            </div>
+          </details>
+          <div class="card tip-card" id="registrarTip"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Historial -->
+    <section id="view-historial" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Registro</p>
+          <h2>Historial</h2>
+        </div>
+        <span class="badge badge-soft" id="historyCount"></span>
+      </div>
+      <div class="card filter-bar">
+        <label class="field compact"><span>Año</span><select id="filterYear"><option value="">Todos</option></select></label>
+        <label class="field compact"><span>Mes</span><select id="filterMonth"><option value="">Todos</option></select></label>
+      </div>
+      <div id="weeklyArchivesContainer"></div>
+      <div id="historyContainer"></div>
+    </section>
+
+    <!-- Progreso -->
+    <section id="view-progreso" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Analítica</p>
+          <h2>Progreso</h2>
+        </div>
+        <span class="badge badge-soft">Por ejercicio</span>
+      </div>
+      <div class="card exercise-bar">
+        <label class="field"><span>Ejercicio</span><select id="progressExercise"></select></label>
+      </div>
+      <div id="progressContent"></div>
+    </section>
+
+    <!-- Volumen -->
+    <section id="view-volumen" class="view">
+      <div id="volumeContent"></div>
+    </section>
+
+    <!-- Reportes -->
+    <section id="view-reportes" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Resumen</p>
+          <h2>Reportes</h2>
+        </div>
+      </div>
+      <div class="seg" role="tablist" aria-label="Tipo de reporte">
+        <button data-rep="dia" class="active" type="button">Por día</button>
+        <button data-rep="semana" type="button">Por semana</button>
+      </div>
+      <div id="reportesContent"></div>
+    </section>
+
+    <!-- Nutrición -->
+    <section id="view-nutricion" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Combustible</p>
+          <h2>Nutrición</h2>
+        </div>
+        <span class="badge badge-soft" id="nutritionGoalBadge"></span>
+      </div>
+
+      <details class="card details-card profile-details">
+        <summary><span><svg class="icon"><use href="#i-user"/></svg> Perfil y actividad</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body">
+          <div class="grid grid-3">
+            <label class="field"><span>Peso (kg)</span><input type="text" id="nWeight" inputmode="decimal" pattern="[0-9.,]*" autocomplete="off"></label>
+            <label class="field"><span>Altura (cm)</span><input type="text" id="nHeight" inputmode="numeric" pattern="[0-9]*" autocomplete="off"></label>
+            <label class="field"><span>Edad</span><input type="text" id="nAge" inputmode="numeric" pattern="[0-9]*" autocomplete="off"></label>
+          </div>
+          <div class="grid grid-2">
+            <label class="field"><span>Sexo</span><select id="nSex"><option value="M">Masculino</option><option value="F">Femenino</option></select></label>
+            <label class="field"><span>Nivel de actividad</span>
+              <select id="nActivity">
+                <option value="1.2">Sedentario</option>
+                <option value="1.375">Ligero (1-3 días/sem)</option>
+                <option value="1.55">Moderado (3-5 días/sem)</option>
+                <option value="1.725">Intenso (6-7 días/sem)</option>
+                <option value="1.9">Atleta (2 sesiones/día)</option>
+              </select>
+            </label>
+          </div>
+          <div class="grid grid-2">
+            <label class="field"><span>Experiencia</span>
+              <select id="nExp">
+                <option value="principiante">Principiante (0-1 año)</option>
+                <option value="intermedio">Intermedio (1-3 años)</option>
+                <option value="avanzado">Avanzado (3+ años)</option>
+              </select>
+            </label>
+            <label class="field"><span>Días por semana</span>
+              <select id="nFreq">
+                <option value="2-3">2-3 días</option>
+                <option value="4">4 días</option>
+                <option value="5">5 días</option>
+                <option value="6+">6 o más días</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </details>
+
+      <div class="card">
+        <div class="card-head"><h3>Objetivo</h3><span class="muted small">Define tu estrategia</span></div>
+        <div class="choice-list compact" id="goalPicker"></div>
+        <button class="btn btn-primary btn-block" id="saveProfileBtn" type="button">Guardar perfil</button>
+      </div>
+
+      <div class="grid grid-2 nutrition-overview">
+        <div class="card">
+          <div class="card-head"><h3>Hoy</h3><span class="badge badge-soft" id="balancePct"></span></div>
+          <div id="balanceContent"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Semana</h3><span class="muted small">Cumplimiento</span></div>
+          <div id="weeklyNutritionContent"></div>
+        </div>
+      </div>
+
+      <details class="card details-card">
+        <summary><span><svg class="icon"><use href="#i-info"/></svg> Observaciones de hoy</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body"><div id="obsContent"></div></div>
+      </details>
+
+      <details class="card details-card">
+        <summary><span><svg class="icon"><use href="#i-target"/></svg> Objetivos calculados</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body"><div id="goalsContent"></div></div>
+      </details>
+
+      <div class="card">
+        <div class="card-head"><h3>Registrar alimento</h3><span class="muted small">Base de datos o etiqueta</span></div>
+        <div class="seg seg-sm" id="foodModeTabs">
+          <button class="active" data-mode="db" type="button">Base de datos</button>
+          <button data-mode="manual" type="button">Desde etiqueta</button>
+        </div>
+
+        <div id="modeDB">
+          <div class="search-wrap">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <input type="text" id="foodSearch" placeholder="Busca pollo, arroz, whey…" autocomplete="off" aria-label="Buscar alimento">
+            <button type="button" class="search-clear" id="foodSearchClear" aria-label="Limpiar búsqueda" hidden><svg class="icon"><use href="#i-x"/></svg></button>
+          </div>
+          <div id="foodResults" class="food-results"></div>
+          <div id="foodSelected" class="food-selected" style="display:none"></div>
+          <div class="grid grid-2">
+            <label class="field"><span>Gramos</span><input type="text" id="foodGrams" inputmode="decimal" pattern="[0-9.,]*" placeholder="Ej. 150" autocomplete="off"></label>
+            <label class="field"><span>Momento del día</span>
+              <select id="mealTime">
+                <option>Desayuno</option><option>Almuerzo</option><option>Cena</option>
+                <option>Snack</option><option>Pre-entreno</option><option>Post-entreno</option>
+              </select>
+            </label>
+          </div>
+          <div id="foodPreview" class="preview-card" style="display:none"></div>
+          <button class="btn btn-primary btn-block" id="addFoodBtn" type="button"><svg class="icon"><use href="#i-plus"/></svg> Añadir al día</button>
+        </div>
+
+        <div id="modeManual" style="display:none">
+          <label class="field"><span>Nombre del producto</span><input type="text" id="mName" placeholder="Ej. Pan integral marca X" autocomplete="off"></label>
+          <label class="field"><span>Los valores de la etiqueta son</span>
+            <select id="mBase">
+              <option value="100">Por 100 g (o 100 ml)</option>
+              <option value="porcion">Por porción del paquete</option>
+            </select>
+          </label>
+          <div id="mPortionRow" style="display:none">
+            <label class="field"><span>Tamaño de una porción (g o ml)</span><input type="text" id="mPortionSize" inputmode="decimal" pattern="[0-9.,]*" placeholder="Ej. 31" autocomplete="off"></label>
+          </div>
+          <div class="grid grid-3">
+            <label class="field"><span>Proteína (g)</span><input type="text" id="mProt" inputmode="decimal" pattern="[0-9.,]*" placeholder="0" autocomplete="off"></label>
+            <label class="field"><span>Carbos (g)</span><input type="text" id="mCarb" inputmode="decimal" pattern="[0-9.,]*" placeholder="0" autocomplete="off"></label>
+            <label class="field"><span>Grasas (g)</span><input type="text" id="mFat" inputmode="decimal" pattern="[0-9.,]*" placeholder="0" autocomplete="off"></label>
+          </div>
+          <div class="grid grid-2">
+            <label class="field"><span>¿Cuántos gramos vas a comer?</span><input type="text" id="mGrams" inputmode="decimal" pattern="[0-9.,]*" placeholder="Ej. 31" autocomplete="off"></label>
+            <label class="field"><span>Momento del día</span>
+              <select id="mealTimeManual">
+                <option>Desayuno</option><option>Almuerzo</option><option>Cena</option>
+                <option>Snack</option><option>Pre-entreno</option><option>Post-entreno</option>
+              </select>
+            </label>
+          </div>
+          <div id="manualPreview" class="preview-card" style="display:none"></div>
+          <button class="btn btn-primary btn-block" id="addManualBtn" type="button"><svg class="icon"><use href="#i-plus"/></svg> Guardar y añadir al día</button>
+        </div>
+      </div>
+
+      <div id="mealsList"></div>
+
+      <details class="card details-card">
+        <summary><span><svg class="icon"><use href="#i-sparkles"/></svg> Sugerencias para completar tus macros</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body"><div id="suggestionsContent"></div></div>
+      </details>
+
+      <div class="card">
+        <div class="card-head"><h3>Suplementos de hoy</h3><span class="badge badge-soft" id="suppCount"></span></div>
+        <div id="supplementsContent"></div>
+        <div class="inline-form">
+          <input type="text" id="newSuppName" placeholder="Ej. Creatina" autocomplete="off" aria-label="Nombre del suplemento">
+          <input type="text" id="newSuppDose" placeholder="Dosis (5 g)" autocomplete="off" aria-label="Dosis">
+          <button class="btn btn-ghost" id="addSuppBtn" type="button"><svg class="icon"><use href="#i-plus"/></svg> Añadir</button>
+        </div>
+      </div>
+
+      <details class="card details-card">
+        <summary><span><svg class="icon"><use href="#i-info"/></svg> Recomendaciones personalizadas</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body"><div id="infoBox" class="info-box"></div></div>
+      </details>
+
+      <details class="card details-card">
+        <summary><span><svg class="icon"><use href="#i-apple"/></svg> Mis alimentos personalizados</span><svg class="icon chev"><use href="#i-chevron"/></svg></summary>
+        <div class="details-body"><div id="customFoodsList"></div></div>
+      </details>
+    </section>
+
+    <!-- Ejercicios -->
+    <section id="view-ejercicios" class="view">
+      <div class="view-head">
+        <div>
+          <p class="eyebrow">Biblioteca</p>
+          <h2>Ejercicios y respaldo</h2>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Agregar ejercicio</h3></div>
+        <div class="grid grid-2 stack-mobile">
+          <label class="field"><span>Grupo muscular</span><select id="newExBody"></select></label>
+          <label class="field"><span>Nombre</span><input type="text" id="newExName" placeholder="Nombre del ejercicio" autocomplete="off"></label>
+        </div>
+        <button class="btn btn-primary btn-block" id="addExBtn" type="button"><svg class="icon"><use href="#i-plus"/></svg> Agregar a la biblioteca</button>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Biblioteca</h3><span class="muted small" id="exCount"></span></div>
+        <div class="search-wrap">
+          <svg class="icon"><use href="#i-search"/></svg>
+          <input type="text" id="exSearch" placeholder="Buscar ejercicio…" autocomplete="off" aria-label="Buscar ejercicio">
+        </div>
+        <div id="exLibrary"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Respaldo</h3><span class="muted small">Tus datos, en tu dispositivo</span></div>
+        <p class="muted small" style="margin-bottom:14px">Descarga una copia de seguridad o restaura tus datos desde un archivo.</p>
+        <div class="grid grid-2 stack-mobile">
+          <button class="btn btn-ghost" id="exportBtn" type="button"><svg class="icon"><use href="#i-download"/></svg> Descargar respaldo</button>
+          <button class="btn btn-ghost" id="importBtn" type="button"><svg class="icon"><use href="#i-upload"/></svg> Restaurar respaldo</button>
+        </div>
+        <input type="file" id="importFile" accept=".json,application/json" hidden>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ===== Navegación ===== -->
+<nav class="dock" aria-label="Navegación principal">
+  <button data-tab="inicio" class="active" type="button">
+    <span class="dock-icon"><svg class="icon"><use href="#i-home"/></svg></span><span>Inicio</span>
+  </button>
+  <button data-tab="registrar" type="button">
+    <span class="dock-icon"><svg class="icon"><use href="#i-dumbbell"/></svg></span><span>Entrenar</span>
+  </button>
+  <button data-tab="historial" type="button">
+    <span class="dock-icon"><svg class="icon"><use href="#i-calendar"/></svg></span><span>Historial</span>
+  </button>
+  <button data-tab="progreso" type="button">
+    <span class="dock-icon"><svg class="icon"><use href="#i-chart"/></svg></span><span>Progreso</span>
+  </button>
+  <button data-tab="nutricion" type="button">
+    <span class="dock-icon"><svg class="icon"><use href="#i-apple"/></svg></span><span>Nutrición</span>
+  </button>
+</nav>
+
+<div id="modalRoot"></div>
+<div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
